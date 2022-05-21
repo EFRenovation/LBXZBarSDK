@@ -100,7 +100,7 @@
  @param image 图片
  @param block 返回失败结果
  */
-+ (void)recognizeImage:(UIImage*)image block:(void(^)(NSArray<LBXZbarResult*> *result))block;
++ (void)recognizeImage:(UIImage*)image types:(NSArray<NSNumber *>*)types block:(void(^)(NSArray<LBXZbarResult*> *result))block;
 
 /**
  将码的类型转换字符串表示

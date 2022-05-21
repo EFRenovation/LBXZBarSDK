@@ -97,12 +97,34 @@
     }
 }
 
-+ (void)recognizeImage:(UIImage*)image block:(void(^)(NSArray<LBXZbarResult*> *result))block
++ (void)recognizeImage:(UIImage*)image types:(NSArray<NSNumber *>*)types block:(void(^)(NSArray<LBXZbarResult*> *result))block
 {
     UIImage * aImage = image;
     ZBarReaderController *read = [ZBarReaderController new];
     CGImageRef cgImageRef = aImage.CGImage;
     ZBarSymbol* symbol = nil;
+    
+    // get scanner
+    ZBarImageScanner *scanner = read.scanner;
+    // disable all first
+    [scanner setSymbology: ZBAR_NONE
+                   config: ZBAR_CFG_ENABLE
+                       to: 0];
+    // approve new types all
+    for (int i = 0; i < [types count]; i++)
+    {
+        NSNumber* typeNumber = [types objectAtIndex:i];
+        zbar_symbol_type_t type = (zbar_symbol_type_t)[typeNumber unsignedIntValue];
+        [scanner setSymbology: type
+                       config: ZBAR_CFG_ENABLE
+                           to: 1];
+        [scanner setSymbology: type
+                       config: ZBAR_CFG_X_DENSITY
+                           to: 3];
+        [scanner setSymbology: type
+                       config: ZBAR_CFG_Y_DENSITY
+                           to: 3];
+    }
     
     NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:1];
     
