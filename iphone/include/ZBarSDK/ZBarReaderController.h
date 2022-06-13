@@ -49,7 +49,7 @@ typedef enum {
 
 @class ZBarReaderController;
 
-@protocol ZBarReaderDelegate <UIImagePickerControllerDelegate>
+@protocol ZBarReaderDelegate /*<UIImagePickerControllerDelegate>*/
 @optional
 
 // called when no barcode is found in an image selected by the user.
@@ -61,9 +61,10 @@ typedef enum {
 
 
 @interface ZBarReaderController
-    : UIImagePickerController
+    : NSObject
+    /*: UIImagePickerController
     < UINavigationControllerDelegate,
-      UIImagePickerControllerDelegate >
+      UIImagePickerControllerDelegate >*/
 {
     ZBarImageScanner *scanner;
     UIView *overlay, *boxView;
@@ -100,6 +101,9 @@ typedef enum {
 
 // how to use the camera (when sourceType == Camera)
 @property (nonatomic) ZBarReaderControllerCameraMode cameraMode;
+
+//
+@property (nonatomic) UIImagePickerControllerSourceType sourceType;
 
 // whether to outline symbols with the green tracking box.
 @property (nonatomic) BOOL tracksSymbols;

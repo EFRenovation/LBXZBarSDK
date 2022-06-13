@@ -47,7 +47,7 @@ CGImageRef UIGetScreenImage(void);
 
 @implementation ZBarReaderController
 
-@synthesize scanner, readerDelegate, cameraMode, scanCrop, maxScanDimension,
+@synthesize scanner, readerDelegate, cameraMode, sourceType, scanCrop, maxScanDimension,
     showsHelpOnFail, takesPicture, enableCache, tracksSymbols;
 @dynamic showsZBarControls;
 
@@ -84,7 +84,8 @@ CGImageRef UIGetScreenImage(void);
 
 - (void) initOverlay
 {
-    CGRect bounds = self.view.bounds;
+    // CGRect bounds = self.view.bounds;
+    CGRect bounds = UIScreen.mainScreen.bounds;
     overlay = [[UIView alloc] initWithFrame: bounds];
     overlay.backgroundColor = [UIColor clearColor];
 
@@ -189,7 +190,7 @@ CGImageRef UIGetScreenImage(void);
 - (void) scan
 {
     scanBtn.enabled = NO;
-    self.view.userInteractionEnabled = NO;
+    // self.view.userInteractionEnabled = NO;
     [self takePicture];
 }
 
@@ -203,7 +204,7 @@ CGImageRef UIGetScreenImage(void);
 - (void) reenable
 {
     scanBtn.enabled = YES;
-    self.view.userInteractionEnabled = YES;
+    // cself.view.userInteractionEnabled = YES;
 }
 
 - (void) initScanning
@@ -229,7 +230,7 @@ CGImageRef UIGetScreenImage(void);
                 [self setShowsCameraControls: YES];
         }
 
-        self.view.userInteractionEnabled = YES;
+        // self.view.userInteractionEnabled = YES;
 
         sampling = (cameraMode == ZBarReaderControllerCameraModeSampling ||
                     cameraMode == ZBarReaderControllerCameraModeSequence);
